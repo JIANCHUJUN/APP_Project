@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.frank.group.Detail">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/companyName"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="Apple Inc."
+            android:textColor="#000"
+            android:textSize="30dp" />
+
+        <TableLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <TableRow>
+
+                <TextView
+                    android:text="symbol: "
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/symbol"
+                    android:layout_marginLeft="10dp"
+                    android:text="AAPL"
+                    android:textSize="18dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:text="Company Name: "
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/company"
+                    android:layout_marginLeft="10dp"
+                    android:text="Apple Inc."
+                    android:textSize="18dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:text="exchange: "
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/exchange"
+                    android:layout_marginLeft="10dp"
+                    android:text="Nasdaq Global Select"
+                    android:textSize="18dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:text="industry: "
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/industry"
+                    android:layout_marginLeft="10dp"
+                    android:text="Computer Hardware"
+                    android:textSize="18dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:text="website: "
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/website"
+                    android:layout_marginLeft="10dp"
+                    android:text="http://www.apple.com"
+                    android:textSize="18dp" />
+            </TableRow>
+
+
+            <TableRow>
+
+                <TextView
+                    android:text="CEO: "
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/CEO"
+                    android:layout_marginLeft="10dp"
+                    android:text="Timothy D. Cook"
+                    android:textSize="18dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:text="issueType: "
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/issueType"
+                    android:layout_marginLeft="10dp"
+                    android:text="cs"
+                    android:textSize="18dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:text="sector: "
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/sector"
+                    android:layout_marginLeft="10dp"
+                    android:text="Technology"
+                    android:textSize="18dp" />
+            </TableRow>
+
+
+        </TableLayout>
+
+        <TableLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <TableRow>
+
+                <TextView
+                    android:text="description: "
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="240dp"
+                    android:layout_marginLeft="20dp"
+                    android:singleLine="false"
+                    android:text="Apple Inc is an American multinational technology company. It designs, manufactures, and markets mobile communication and media devices, personal computers, and portable digital music players."
+                    android:textSize="14dp" />
+            </TableRow>
+        </TableLayout>
+
+
+        <TableLayout
+            android:layout_width="300dp"
+            android:layout_marginTop="30dp"
+            android:layout_height="wrap_content">
+            <TableRow>
+                <Button
+                    android:id="@+id/web"
+                    android:text="More information"/>
+                <Button
+                    android:id="@+id/back"
+                    android:layout_marginLeft="50dp"
+                    android:text="back"/>
+            </TableRow>
+        </TableLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

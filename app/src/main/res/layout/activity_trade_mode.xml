@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.frank.group.TradeMode">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TableLayout
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center">
+
+            <TableRow>
+
+                <ImageButton
+                    android:id="@+id/changMode"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="#fff"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/change" />
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:text="Simulation trading model"
+                    android:textColor="#000"
+                    android:textSize="25dp" />
+
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center">
+
+            <TableRow>
+
+                <CheckBox
+                    android:id="@+id/hideStock"
+                    android:text="Shwo all stocks"/>
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <TableRow>
+
+                <TextView
+                    android:text="cash: "
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/cash"
+                    android:layout_marginLeft="20dp"
+                    android:singleLine="false"
+                    android:text="$ 900"
+                    android:textSize="14dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:text="Total assets
+: "
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/total"
+                    android:layout_marginLeft="20dp"
+                    android:singleLine="false"
+                    android:text="$ 9000"
+                    android:textSize="14dp" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="130dp">
+
+    </ListView>
+
+</RelativeLayout>
