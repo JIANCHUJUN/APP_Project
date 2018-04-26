@@ -6,11 +6,13 @@ import android.view.View;
 
 public class Detail extends AppCompatActivity {
 
+    String symbol;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        symbol = getIntent().getExtras().getString("symbol");
     }
 
     public void delete(View view){

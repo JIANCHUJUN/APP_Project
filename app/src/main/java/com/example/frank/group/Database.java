@@ -43,6 +43,7 @@ public class Database {
         sqLiteDatabase.insert(DBOpenHelper.TABLE_NAME, null, contentValues);
     }
 
+
     public ArrayList<Company> get(Cursor cursor){
         if (cursor != null){
             cursor.moveToFirst();
@@ -66,32 +67,6 @@ public class Database {
         return null;
     }
 
-
-
-//    public List<String> getAllRecord() {
-//        Cursor cursor = sqLiteDatabase.query(DBOpenHelper.TABLE_NAME,
-//                new String[]{DBOpenHelper.COLUMN_ID,
-//                        DBOpenHelper.COLUMN_VOTE_COUNT,
-//                        DBOpenHelper.COLUMN_VOTE_AVERAGE,
-//                        DBOpenHelper.COLUMN_TITLE,
-//                        DBOpenHelper.COLUMN_POPULARITY,
-//                        DBOpenHelper.COLUMN_POSTER_PATH,
-//                        DBOpenHelper.COLUMN_OVERVIEW},
-//                null, null, null, null, null);
-//        cursor.moveToFirst();
-//        List<String> result = new ArrayList<>();
-//        while (!cursor.isAfterLast()) {
-//            result.add("" + cursor.getInt(0) + " " +
-//                    cursor.getInt(1) + " " +
-//                    cursor.getFloat(2) + " " +
-//                    cursor.getString(3) + " " +
-//                    cursor.getFloat(4) + " " +
-//                    cursor.getString(5) + " " +
-//                    cursor.getString(6) + " ");
-//            cursor.moveToNext();
-//        }
-//        return result;
-//    }
 
     public void deleteAll() {
         if (sqLiteDatabase.isOpen()) {
