@@ -14,7 +14,7 @@
         <TextView
             android:id="@+id/companyName"
             android:layout_width="300dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:text="Apple Inc."
@@ -157,10 +157,14 @@
 
 
         <TableLayout
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_marginTop="30dp"
-            android:layout_height="wrap_content">
-            <TableRow>
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+            <TableRow
+                android:gravity="center"
+                android:layout_width="match_parent">
                 <Button
                     android:id="@+id/web"
                     android:text="More information"/>

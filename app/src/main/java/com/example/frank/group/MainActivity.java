@@ -7,28 +7,33 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements StockFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements StockFragment.OnFragmentInteractionListener, View.OnClickListener {
 
     StockAPI stockAPI;
     Database databaseManager;
     EditText ticker;
     LinearLayout container;
+    ImageButton switchMode;
     static final int RESIGTER_REQUEST_CODE = 1;
     public static ArrayList<Company> stockList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        switchMode = findViewById(R.id.changMode);
         stockAPI = new StockAPI(this);
         //stockAPI.getInfo("aapl");
         databaseManager = new Database(this);
         ticker = findViewById(R.id.ticker);
         container = findViewById(R.id.container);
         stockList = new ArrayList<>();
+        switchMode.setOnClickListener(this);
+
     }
 
     @Override
@@ -83,5 +88,19 @@ public class MainActivity extends AppCompatActivity implements StockFragment.OnF
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    static int TRAEMODE_RESIGTER_REQUEST_CODE = 3;
+    /**
+     * update at 5:38, 4/28/2018, fangzh
+     * @param view
+     */
+    @Override
+    public void onClick(View view) {
+        if(view == switchMode){
+            Intent intent = new Intent(this, TradeMode.class);
+
+            startActivityForResult(intent, MainActivity.TRAEMODE_RESIGTER_REQUEST_CODE);
+        }
     }
 }
