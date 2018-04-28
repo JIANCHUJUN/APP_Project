@@ -11,7 +11,6 @@ import java.util.List;
 /**
  * Created by JiachengYe on 3/10/2018.
  */
-
 public class Database {
     private DBOpenHelper dbOpenHelper;
     public SQLiteDatabase sqLiteDatabase;

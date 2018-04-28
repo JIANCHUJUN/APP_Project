@@ -32,7 +32,8 @@
                     android:layout_marginLeft="30dp"
                     android:text="Stork Information"
                     android:textColor="#000"
-                    android:textSize="25dp" />
+                    android:textSize="25dp"
+                    android:onClick="refresh"/>
 
             </TableRow>
         </TableLayout>

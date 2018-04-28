@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements StockFragment.OnF
         }
     }
 
+
     public void saveInfo(Company company){
         //databaseManager.deleteAll();
         databaseManager.insertCompanyInfo(company);

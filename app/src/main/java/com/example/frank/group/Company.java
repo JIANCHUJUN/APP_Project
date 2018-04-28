@@ -14,6 +14,7 @@ public class Company {
     String CEO;
     String issueType;
     String sector;
+    double price;
 
     public Company(String symbol, String companyName, String exchange,
                    String industry, String website, String description,

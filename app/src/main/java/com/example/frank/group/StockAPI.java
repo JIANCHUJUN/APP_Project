@@ -4,6 +4,7 @@ package com.example.frank.group;
  * Created by JiachengYe on 4/25/2018.
  */
 
+import android.app.IntentService;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -18,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class StockAPI implements Response.Listener<String>, Response.ErrorListener{
 
@@ -27,16 +29,27 @@ public class StockAPI implements Response.Listener<String>, Response.ErrorListen
 
     MainActivity mainActivity;
     RequestQueue queue;
+    ReentrantLock lock;
+    String price_symbol;
 
     public StockAPI(MainActivity ma){
         mainActivity = ma;
         queue = Volley.newRequestQueue(mainActivity);
+        lock = new ReentrantLock();
     }
 
     public void getInfo(String symbol_name){
         String request_string = requestURL + "/stock/" + symbol_name + "/company";
         StringRequest request = new StringRequest(Request.Method.GET,
                 request_string, this, this);
+        queue.add(request);
+    }
+
+    public void getPrice(String symbol_name){
+        String request_string = requestURL + "/stock/" + symbol_name + "/price";
+        StringRequest request = new StringRequest(Request.Method.GET,
+                request_string, this, this);
+        lock.lock();
         queue.add(request);
     }
 
@@ -49,6 +62,14 @@ public class StockAPI implements Response.Listener<String>, Response.ErrorListen
     @Override
     public void onResponse(String response) {
         Log.d("test",response);
+        try{
+            Double price = Double.parseDouble(response);
+
+            return;
+        }
+        catch (Exception e){
+
+        }
         try {
             JSONObject jsonObject = new JSONObject(response);
             String symbol = jsonObject.getString("symbol");
