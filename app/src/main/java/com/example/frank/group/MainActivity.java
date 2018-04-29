@@ -52,9 +52,10 @@ public class MainActivity extends AppCompatActivity implements StockFragment.OnF
     public void add(View view){
         for (Company company: stockList){
             if (company.symbol.equals(ticker.getText().toString())){
-                return;
-            }
+                updateUI();
+            return;
         }
+    }
         stockAPI.getInfo(ticker.getText().toString());
     }
 
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements StockFragment.OnF
             StockFragment frag = new StockFragment();
             Bundle args = new Bundle();
             args.putString("name", company.companyName);
+            args.putDouble("price", company.price);
             args.putString("symbol",company.symbol);
             frag.setArguments(args);
             getSupportFragmentManager().beginTransaction().add(R.id.container, frag).commit();
@@ -83,6 +85,11 @@ public class MainActivity extends AppCompatActivity implements StockFragment.OnF
         Intent intent = new Intent(this, Detail.class);
         intent.putExtra("symbol",symbol);
         startActivityForResult(intent, MainActivity.RESIGTER_REQUEST_CODE);
+    }
+
+    public void delete(String symbol) {
+        databaseManager.sqLiteDatabase.delete("stocks","symbol='"+symbol+"'",null);
+        updateUI();
     }
 
     @Override

@@ -29,6 +29,7 @@ public class Database {
     }
 
     public void insertCompanyInfo(Company company) {
+        //sqLiteDatabase.delete(dbOpenHelper.TABLE_NAME, dbOpenHelper.COLUMN_SYMBOL + "=" + company.symbol,null);
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBOpenHelper.COLUMN_SYMBOL, company.symbol);
         contentValues.put(DBOpenHelper.COLUMN_CEO, company.CEO);
@@ -58,6 +59,7 @@ public class Database {
                 try{company.sector = cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_SECTOR));}catch (Exception e){};
                 try{company.symbol = cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_SYMBOL));}catch (Exception e){};
                 try{company.website = cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_WEBSITE));}catch (Exception e){};
+                try{company.price = cursor.getDouble(cursor.getColumnIndex(DBOpenHelper.COLUMN_PRICE));}catch (Exception e){};
                 result.add(company);
                 cursor.moveToNext();
             }

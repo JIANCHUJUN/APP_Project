@@ -21,6 +21,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String COLUMN_CEO = "ceo";
     public static final String COLUMN_ISSUETYPE = "issuetype";
     public static final String COLUMN_SECTOR = "sector";
+    public static final String COLUMN_PRICE = "price";
 
     private static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + TABLE_NAME +
             "(" + COLUMN_SYMBOL + " TEXT PRIMARY KEY," +
@@ -31,7 +32,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             COLUMN_DESCRIPTION + " TEXT," +
             COLUMN_CEO + " TEXT," +
             COLUMN_ISSUETYPE + " TEXT," +
-            COLUMN_SECTOR + " TEXT" +
+            COLUMN_SECTOR + " TEXT," +
+            COLUMN_PRICE + " FLOAT" +
             ")";
 
     public DBOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {

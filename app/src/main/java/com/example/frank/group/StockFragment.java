@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -32,6 +33,8 @@ public class StockFragment extends Fragment implements View.OnClickListener {
 
     public TextView name;
     public String symbol;
+    TextView price;
+    Button delete;
 
     private OnFragmentInteractionListener mListener;
 
@@ -84,10 +87,15 @@ public class StockFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view,savedInstanceState);
         name = getView().findViewById(R.id.name);
+        price = getView().findViewById(R.id.price);
+        delete = (Button)getView().findViewById(R.id.delete);
+        delete.setOnClickListener(this);
         name.setOnClickListener(this);
         symbol = getArguments().getString("symbol");
         String com_name = getArguments().getString("name");
+        String com_price = String.valueOf(getArguments().getDouble("price"));
         name.setText(com_name);
+        price.setText("$"+com_price);
     }
 
     @Override
@@ -116,6 +124,9 @@ public class StockFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.name){
             ((MainActivity)getActivity()).detail(symbol);
+        }
+        else if(v.getId() == R.id.delete) {
+            ((MainActivity)getActivity()).delete(symbol);
         }
     }
 

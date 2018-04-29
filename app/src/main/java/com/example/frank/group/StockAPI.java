@@ -5,6 +5,7 @@ package com.example.frank.group;
  */
 
 import android.app.IntentService;
+import android.content.ContentValues;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -50,6 +51,7 @@ public class StockAPI implements Response.Listener<String>, Response.ErrorListen
         StringRequest request = new StringRequest(Request.Method.GET,
                 request_string, this, this);
         lock.lock();
+        price_symbol = symbol_name;
         queue.add(request);
     }
 
@@ -64,12 +66,18 @@ public class StockAPI implements Response.Listener<String>, Response.ErrorListen
         Log.d("test",response);
         try{
             Double price = Double.parseDouble(response);
-
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(DBOpenHelper.COLUMN_PRICE, price);
+            mainActivity.databaseManager.sqLiteDatabase.update("stocks", contentValues, "symbol=" + "'" + price_symbol + "'", null);//execSQL("update stocks set price="
+            price_symbol = "";
+            lock.unlock();
+            mainActivity.updateUI();
             return;
         }
         catch (Exception e){
-
+            e.printStackTrace();
         }
+
         try {
             JSONObject jsonObject = new JSONObject(response);
             String symbol = jsonObject.getString("symbol");
@@ -92,7 +100,7 @@ public class StockAPI implements Response.Listener<String>, Response.ErrorListen
             company.symbol = symbol;
             company.website = website;
             mainActivity.saveInfo(company);
-            mainActivity.updateUI();
+            getPrice(symbol);
             //System.out.println("hey!");
         } catch (JSONException e) {
             System.out.println("shit!");

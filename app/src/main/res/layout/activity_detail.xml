@@ -29,6 +29,8 @@
             <TableRow>
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:maxWidth="100dp"
                     android:text="symbol: "
                     android:textSize="18dp" />
 
@@ -46,6 +48,8 @@
                     android:textSize="18dp" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:maxWidth="100dp"
                     android:id="@+id/company"
                     android:layout_marginLeft="10dp"
                     android:text="Apple Inc."
@@ -59,6 +63,8 @@
                     android:textSize="18dp" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:maxWidth="200dp"
                     android:id="@+id/exchange"
                     android:layout_marginLeft="10dp"
                     android:text="Nasdaq Global Select"
@@ -72,6 +78,8 @@
                     android:textSize="18dp" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:maxWidth="100dp"
                     android:id="@+id/industry"
                     android:layout_marginLeft="10dp"
                     android:text="Computer Hardware"
@@ -85,6 +93,8 @@
                     android:textSize="18dp" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:maxWidth="220dp"
                     android:id="@+id/website"
                     android:layout_marginLeft="10dp"
                     android:text="http://www.apple.com"
@@ -99,6 +109,8 @@
                     android:textSize="18dp" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:maxWidth="220dp"
                     android:id="@+id/CEO"
                     android:layout_marginLeft="10dp"
                     android:text="Timothy D. Cook"
