@@ -10,8 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-
         <TableLayout
             android:layout_width="350dp"
             android:layout_height="50dp"
@@ -41,9 +39,7 @@
             android:layout_width="200dp"
             android:layout_height="30dp"
             android:layout_gravity="center">
-
             <TableRow>
-
                 <CheckBox
                     android:id="@+id/hideStock"
                     android:text="Shwo all stocks"/>
@@ -75,7 +71,6 @@
                     android:text="Total assets
 : "
                     android:textSize="18dp" />
-
                 <TextView
                     android:id="@+id/total"
                     android:layout_marginLeft="20dp"
@@ -87,12 +82,12 @@
     </LinearLayout>
 
 
-
-    <ListView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/container"
+        android:orientation="vertical"
         android:layout_marginTop="130dp">
-
-    </ListView>
+    </LinearLayout>
 
 </RelativeLayout>

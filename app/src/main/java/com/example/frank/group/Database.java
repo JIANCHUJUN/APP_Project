@@ -60,12 +60,117 @@ public class Database {
                 try{company.symbol = cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_SYMBOL));}catch (Exception e){};
                 try{company.website = cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_WEBSITE));}catch (Exception e){};
                 try{company.price = cursor.getDouble(cursor.getColumnIndex(DBOpenHelper.COLUMN_PRICE));}catch (Exception e){};
+                try{company.number = cursor.getInt(cursor.getColumnIndex(DBOpenHelper.COLUMN_NUMBER));}catch (Exception e){};
                 result.add(company);
                 cursor.moveToNext();
             }
             return result;
         }
         return null;
+    }
+
+    public void updateUserInfo(double cash){
+        Cursor cursor = this.sqLiteDatabase.query(DBOpenHelper.TABLE_NAME, new String[]{"*"},
+                "symbol='user#info'", null, null, null, null);
+        cursor.moveToFirst();
+//        if (cursor != null){
+//            cursor.moveToFirst();
+//            Boolean b = cursor.isAfterLast();
+//            String s = cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_SYMBOL));
+//            Double p = cursor.getDouble(cursor.getColumnIndex(DBOpenHelper.COLUMN_PRICE));
+//        }
+        if (cursor.isAfterLast())
+        {
+            //there is not user#info
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(DBOpenHelper.COLUMN_SYMBOL, "user#info");
+            contentValues.put(DBOpenHelper.COLUMN_PRICE, cash);
+            sqLiteDatabase.insert(DBOpenHelper.TABLE_NAME, null, contentValues);
+        }
+
+    }
+
+    public String getCash() {
+        Cursor cursor = this.sqLiteDatabase.query(DBOpenHelper.TABLE_NAME, new String[]{"*"},
+                "symbol='user#info'", null, null, null, null);
+        cursor.moveToFirst();
+        return String.valueOf(cursor.getDouble(cursor.getColumnIndex(DBOpenHelper.COLUMN_PRICE)));
+    }
+
+    public String getTotal(){
+        Cursor cursor = this.sqLiteDatabase.query(DBOpenHelper.TABLE_NAME, new String[]{"*"},
+                "symbol!='user#info' and number!=0", null, null, null, null);
+        ArrayList<Company> cp_list = get(cursor);
+        double total = 0;
+        for(Company company: cp_list){
+            total+=company.price*company.number;
+        }
+        return String.valueOf(total);
+
+    }
+
+    public void submitBuy(String symbol, int number){
+        //get stock's information
+        Cursor cursor = this.sqLiteDatabase.query(DBOpenHelper.TABLE_NAME, new String[]{"*"},
+                "symbol='"+ symbol+"'", null, null, null, null);
+        ArrayList<Company> cp_list = get(cursor);
+
+        //if can find stock
+        if(cp_list.size() > 0){
+            Company cp = cp_list.get(0);
+            cursor = this.sqLiteDatabase.query(DBOpenHelper.TABLE_NAME, new String[]{"*"},
+                    "symbol='user#info'", null, null, null, null);
+            Company user  = get(cursor).get(0);
+
+            if (cp.price * number > user.price){
+                //inform the money is not enough
+            }
+            else{
+                //update stock count
+                int new_number = cp.number + number;
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(DBOpenHelper.COLUMN_NUMBER, new_number);
+                this.sqLiteDatabase.update("stocks", contentValues, "symbol=" + "'" + symbol + "'", null);
+
+                //update user's cash
+                double new_cash = user.price - cp.price * number;
+                contentValues = new ContentValues();
+                contentValues.put(DBOpenHelper.COLUMN_PRICE, new_cash);
+                this.sqLiteDatabase.update("stocks", contentValues, "symbol=" + "'user#info'", null);
+            }
+        }
+    }
+
+    public void submitSell(String symbol, int number){
+        //get stock's information
+        Cursor cursor = this.sqLiteDatabase.query(DBOpenHelper.TABLE_NAME, new String[]{"*"},
+                "symbol='"+ symbol+"'", null, null, null, null);
+        ArrayList<Company> cp_list = get(cursor);
+
+        //if can find stock cp
+        if(cp_list.size() > 0){
+            Company cp = cp_list.get(0);
+            cursor = this.sqLiteDatabase.query(DBOpenHelper.TABLE_NAME, new String[]{"*"},
+                    "symbol='user#info'", null, null, null, null);
+            Company user  = get(cursor).get(0);
+
+            if (cp.number < number){
+                //inform the stocks are not enough
+            }
+            else{
+                //update stock count
+                int new_number = cp.number - number;
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(DBOpenHelper.COLUMN_NUMBER, new_number);
+                this.sqLiteDatabase.update("stocks", contentValues, "symbol=" + "'" + symbol + "'", null);
+
+                //update user's cash
+                double new_cash = user.price + cp.price * number;
+                contentValues = new ContentValues();
+                contentValues.put(DBOpenHelper.COLUMN_PRICE, new_cash);
+                this.sqLiteDatabase.update("stocks", contentValues, "symbol=" + "'user#info'", null);
+            }
+        }
     }
 
 

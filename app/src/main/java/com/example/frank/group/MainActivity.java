@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements StockFragment.OnFragmentInteractionListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements StockFragment.OnFragmentInteractionListener, View.OnClickListener, FragListen {
 
     StockAPI stockAPI;
     Database databaseManager;
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements StockFragment.OnF
         stockList = new ArrayList<>();
         switchMode.setOnClickListener(this);
 
+
     }
 
     @Override
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements StockFragment.OnF
     protected void onResume() {
         super.onResume();
         databaseManager.open();
+        databaseManager.updateUserInfo(7777);
         updateUI();
     }
 
@@ -65,6 +67,9 @@ public class MainActivity extends AppCompatActivity implements StockFragment.OnF
                 null, null, null, null, null);
         stockList = databaseManager.get(cursor);
         for (Company company: stockList){
+            if (company.symbol.equals("user#info")){
+                continue;
+            }
             StockFragment frag = new StockFragment();
             Bundle args = new Bundle();
             args.putString("name", company.companyName);
@@ -106,8 +111,17 @@ public class MainActivity extends AppCompatActivity implements StockFragment.OnF
     public void onClick(View view) {
         if(view == switchMode){
             Intent intent = new Intent(this, TradeMode.class);
-
             startActivityForResult(intent, MainActivity.TRAEMODE_RESIGTER_REQUEST_CODE);
         }
+    }
+
+    @Override
+    public void fragText(String str) {
+        detail(str);
+    }
+
+    @Override
+    public void fragButton(String str) {
+        detail(str);
     }
 }

@@ -31,7 +31,7 @@
                 <TextView
                     android:text="Current Price"
                     android:textSize="15dp"/>
-                <EditText
+                <TextView
                     android:id="@+id/price"
                     android:layout_marginLeft="100dp"
                     android:text="$ 100"/>
@@ -41,7 +41,7 @@
                 <TextView
                     android:text="Number of Own"
                     android:textSize="15dp"/>
-                <EditText
+                <TextView
                     android:id="@+id/number"
                     android:layout_marginLeft="100dp"
                     android:text="30"/>
@@ -54,17 +54,25 @@
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal">
-            <RadioButton
-                android:id="@+id/buy"
-                android:text="BUY"
+            <RadioGroup
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <RadioButton
-                android:id="@+id/sale"
-                android:text="SALE"
-                android:layout_marginLeft="30dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/buy"
+                    android:text="BUY"
+                    android:onClick="submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <RadioButton
+                    android:id="@+id/sale"
+                    android:text="SALE"
+                    android:onClick="submit"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RadioGroup>
+
         </LinearLayout>
 
         <TableLayout
@@ -121,7 +129,17 @@
             android:layout_width="wrap_content"
             android:layout_marginTop="50dp"
             android:layout_height="wrap_content"
-            android:text="what name is it"
+            android:onClick="submit"
+            android:text="submit"
+            android:layout_gravity="center_horizontal"/>
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:text="back"
+            android:onClick="back"
             android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>

@@ -35,6 +35,7 @@ public class StockFragment extends Fragment implements View.OnClickListener {
     public String symbol;
     TextView price;
     Button delete;
+    int mode = 0;//0 is normal, 1 is game mode
 
     private OnFragmentInteractionListener mListener;
 
@@ -94,8 +95,16 @@ public class StockFragment extends Fragment implements View.OnClickListener {
         symbol = getArguments().getString("symbol");
         String com_name = getArguments().getString("name");
         String com_price = String.valueOf(getArguments().getDouble("price"));
+        int m = getArguments().getInt("mode");
+        if(getArguments().getInt("mode") == 1){
+            mode = 1;
+        }
         name.setText(com_name);
         price.setText("$"+com_price);
+
+        if(mode == 1){
+            delete.setText("Buy/Sell");
+        }
     }
 
     @Override
@@ -115,18 +124,13 @@ public class StockFragment extends Fragment implements View.OnClickListener {
         mListener = null;
     }
 
-
-    public void detail(View view){
-        //mListener.go_detail(id);
-    }
-
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.name){
-            ((MainActivity)getActivity()).detail(symbol);
+            ((FragListen)getActivity()).fragText(symbol);
         }
         else if(v.getId() == R.id.delete) {
-            ((MainActivity)getActivity()).delete(symbol);
+            ((FragListen)getActivity()).fragButton(symbol);
         }
     }
 
