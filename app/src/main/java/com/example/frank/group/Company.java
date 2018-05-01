@@ -15,7 +15,7 @@ public class Company {
     String issueType;
     String sector;
     int number;
-    double price;
+    double price, boughtTotal;
 
     public Company(String symbol, String companyName, String exchange,
                    String industry, String website, String description,
@@ -34,4 +34,8 @@ public class Company {
     public Company(){
 
     }
+//    public void setBoughtTotal(double input){
+//        boughtTotal = input;
+//    }
+
 }

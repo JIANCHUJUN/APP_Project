@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class Detail extends AppCompatActivity implements View.OnClickListener {
+public class Detail extends AppCompatActivity implements View.OnClickListener, LineChartFragment.OnFragmentInteractionListener {
 
     String symbol;
     Company currCompany;
@@ -16,6 +16,7 @@ public class Detail extends AppCompatActivity implements View.OnClickListener {
             industryT, websiteT, CEOT, issueTypeT,sectorT,
             descriptionT;
     Button webB, backB;
+    LineChartFragment lineChartFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ public class Detail extends AppCompatActivity implements View.OnClickListener {
         backB = findViewById(R.id.back);
         webB.setOnClickListener(this);
         backB.setOnClickListener(this);
+
+        lineChartFragment = (LineChartFragment) getSupportFragmentManager().findFragmentById(R.id.lineChartContainerR);
 
         updateTheTextView();
 

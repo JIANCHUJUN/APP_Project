@@ -6,19 +6,26 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class TradeMode extends AppCompatActivity implements View.OnClickListener, StockFragment.OnFragmentInteractionListener,FragListen {
+public class TradeMode extends AppCompatActivity implements View.OnClickListener,
+        StockFragment.OnFragmentInteractionListener,FragListen,
+        CompoundButton.OnCheckedChangeListener, ChartFragment.OnFragmentInteractionListener{
 
     ImageButton switchModeButton;
     Database databaseManager;
     LinearLayout container;
     TextView cash,total;
+    CheckBox showStockCheckBox;
+    ChartFragment chartFragment;
     public static ArrayList<Company> stockList;
+    static boolean showAllStock;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,11 +34,20 @@ public class TradeMode extends AppCompatActivity implements View.OnClickListener
         switchModeButton = findViewById(R.id.changMode);
         switchModeButton.setOnClickListener(this);
 
+        showStockCheckBox = findViewById(R.id.hideStock);
+        showStockCheckBox.setOnCheckedChangeListener(this);
+        if(showStockCheckBox.isChecked()){
+            showAllStock = true;
+        }
+
         databaseManager = new Database(this);
         container = findViewById(R.id.container);
         cash = findViewById(R.id.cash);
         total = findViewById(R.id.total);
         stockList = new ArrayList<>();
+
+        chartFragment = (ChartFragment) getSupportFragmentManager().findFragmentById(R.id.chartFragmentR);
+        chartFragment.UpdateChat();
 
     }
 
@@ -105,5 +121,17 @@ public class TradeMode extends AppCompatActivity implements View.OnClickListener
     @Override
     public void fragButton(String str) {
         bs(str);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if(showStockCheckBox.isChecked()){
+            showAllStock = true;
+            chartFragment.UpdateChat();
+        }
+        if(showStockCheckBox.isChecked()){
+            showAllStock = false;
+            chartFragment.UpdateChat();
+        }
     }
 }

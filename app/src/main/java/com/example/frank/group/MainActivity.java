@@ -122,6 +122,6 @@ public class MainActivity extends AppCompatActivity implements StockFragment.OnF
 
     @Override
     public void fragButton(String str) {
-        detail(str);
+        delete(str);
     }
 }
