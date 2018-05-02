@@ -21,7 +21,9 @@
         <activity android:name=".Detail" />
         <activity android:name=".TradeMode" />
         <activity android:name=".TradingInterface" />
-        <activity android:name=".HistoryActivity"></activity>
+        <activity android:name=".HistoryActivity" />
+        <activity android:name=".Setting" />
+        <activity android:name=".Statistics"></activity>
     </application>
 
 </manifest>

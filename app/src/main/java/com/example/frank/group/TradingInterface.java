@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TradingInterface extends AppCompatActivity {
 
@@ -15,7 +16,7 @@ public class TradingInterface extends AppCompatActivity {
     Database database;
     String symbol = "";
     Company company;
-    TextView price, number, companyName;
+    TextView price, number, companyName, totalprice;
     EditText ticker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class TradingInterface extends AppCompatActivity {
         number = findViewById(R.id.number);
         ticker = findViewById(R.id.ticker);
         companyName = findViewById(R.id.companyName);
+        totalprice = findViewById(R.id.totalPrice);
         buy.setChecked(true);
         company = null;
     }
@@ -64,13 +66,30 @@ public class TradingInterface extends AppCompatActivity {
             return;
         }
         if(buy.isChecked()){
-            database.submitBuy(company.symbol,number);
+            if(!database.submitBuy(company.symbol,number)){
+                Toast.makeText(this, "Money not Enough!", Toast.LENGTH_LONG).show();
+                return;
+            }
         }
         else{
-            database.submitSell(company.symbol,number);
+            if(!database.submitSell(company.symbol,number)){
+                Toast.makeText(this, "There are not enough shares!", Toast.LENGTH_LONG).show();
+                return;
+            }
         }
         Intent intent = new Intent(this, TradeMode.class);
         startActivityForResult(intent, MainActivity.TRAEMODE_RESIGTER_REQUEST_CODE);
+    }
+
+    public void calculate (View view){
+        int number;
+        try{
+            number = Integer.parseInt(ticker.getText().toString());
+        }catch (Exception e){
+            e.printStackTrace();
+            return;
+        }
+        totalprice.setText(company.price*number -10 + "");
     }
 
     public void history(View view){

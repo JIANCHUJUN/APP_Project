@@ -3,14 +3,17 @@ package com.example.frank.group;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class MainActivity extends AppCompatActivity implements StockFragment.OnFragmentInteractionListener, View.OnClickListener, FragListen {
 
@@ -21,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements StockFragment.OnF
     ImageButton switchMode;
     static final int RESIGTER_REQUEST_CODE = 1;
     public static ArrayList<Company> stockList;
+    ReentrantLock lock;
+    Timer timer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements StockFragment.OnF
         container = findViewById(R.id.container);
         stockList = new ArrayList<>();
         switchMode.setOnClickListener(this);
+        lock = new ReentrantLock();
+        timer = new Timer();
 
 
     }
@@ -41,27 +48,49 @@ public class MainActivity extends AppCompatActivity implements StockFragment.OnF
     protected void onPause() {
         super.onPause();
         databaseManager.close();
+        if (timer != null){
+            timer.cancel(true);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         databaseManager.open();
-        databaseManager.updateUserInfo(7777);
+        databaseManager.initUserInfo(7777);
         updateUI();
+        //refresh();
+        if(timer != null){
+            timer.execute();
+        }
+
+    }
+
+    private void refresh(){
+        if (stockList!=null){
+            for(Company company:stockList){
+                stockAPI.getInfo(company.symbol);
+            }
+        }
     }
 
     public void add(View view){
-        for (Company company: stockList){
-            if (company.symbol.equals(ticker.getText().toString())){
-                updateUI();
+        if(ticker.getText().toString() == ""){
+            refresh();
             return;
         }
-    }
+        for (Company company: stockList){
+            if (company.symbol.equals(ticker.getText().toString())){
+                refresh();
+                updateUI();
+                return;
+            }
+        }
         stockAPI.getInfo(ticker.getText().toString());
     }
 
     public void updateUI(){
+        lock.lock();
         container.removeAllViews();
         Cursor cursor = databaseManager.sqLiteDatabase.query(DBOpenHelper.TABLE_NAME, new String[]{"*"},
                 null, null, null, null, null);
@@ -78,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements StockFragment.OnF
             frag.setArguments(args);
             getSupportFragmentManager().beginTransaction().add(R.id.container, frag).commit();
         }
+        lock.unlock();
     }
 
 
@@ -112,6 +142,27 @@ public class MainActivity extends AppCompatActivity implements StockFragment.OnF
         if(view == switchMode){
             Intent intent = new Intent(this, TradeMode.class);
             startActivityForResult(intent, MainActivity.TRAEMODE_RESIGTER_REQUEST_CODE);
+        }
+    }
+
+    private class Timer extends AsyncTask<Integer, String, Void>
+    {
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            while(!isCancelled()){
+                try{
+                    Thread.sleep(1000*60);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+                refresh();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
         }
     }
 

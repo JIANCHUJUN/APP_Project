@@ -129,6 +129,14 @@ public class TradeMode extends AppCompatActivity implements View.OnClickListener
         startActivityForResult(intent, MainActivity.RESIGTER_REQUEST_CODE);
     }
 
+    public void stat(View view){
+
+    }
+
+    public void set(View view){
+        Intent intent = new Intent(this, Setting.class);
+        startActivityForResult(intent, MainActivity.TRAEMODE_RESIGTER_REQUEST_CODE);
+    }
     @Override
     public void fragText(String str) {
         detail(str);

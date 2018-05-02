@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.frank.group.TradingInterface">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="Setting"
+            android:textColor="#000"
+            android:textSize="30dp" />
+
+        <TableLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal">
+
+            <TableRow>
+                <TextView
+                    android:text="Current Cash"
+                    android:textSize="15dp"/>
+                <TextView
+                    android:id="@+id/cash"
+                    android:layout_marginLeft="100dp"
+                    android:text="$ 100"/>
+            </TableRow>
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal">
+
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal">
+
+            <TableRow>
+
+            <EditText
+                android:id="@+id/newcash"
+                android:layout_width="150dp"
+                android:hint="Cash"
+                android:textColorHint="#95A1AA"
+                android:selectAllOnFocus="true"
+                android:inputType="number"
+                />
+                <Button
+                    android:id="@+id/submit"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="submit"
+                    android:text="submit"
+                    android:layout_gravity="center_horizontal"/>
+            </TableRow>
+        </TableLayout>
+
+
+
+        <Button
+            android:id="@+id/clear"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_height="wrap_content"
+            android:onClick="clear"
+            android:text="clear"
+            android:layout_gravity="center_horizontal"/>
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:text="back"
+            android:onClick="back"
+            android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -4,7 +4,6 @@ package com.example.frank.group;
  * Created by JiachengYe on 4/25/2018.
  */
 
-import android.app.IntentService;
 import android.content.ContentValues;
 import android.util.Log;
 
@@ -15,11 +14,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class StockAPI implements Response.Listener<String>, Response.ErrorListener{
