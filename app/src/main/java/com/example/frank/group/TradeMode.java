@@ -108,6 +108,11 @@ public class TradeMode extends AppCompatActivity implements View.OnClickListener
         startActivityForResult(intent, MainActivity.TRAEMODE_RESIGTER_REQUEST_CODE);
     }
 
+    public void history(View view){
+        Intent intent = new Intent(this, HistoryActivity.class);
+        startActivityForResult(intent, MainActivity.TRAEMODE_RESIGTER_REQUEST_CODE);
+    }
+
     @Override
     public void onFragmentInteraction(Uri uri) {
 
@@ -134,4 +139,6 @@ public class TradeMode extends AppCompatActivity implements View.OnClickListener
             chartFragment.UpdateChat();
         }
     }
+
+
 }

@@ -24,6 +24,10 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PRICE = "price";
     public static final String COLUMN_NUMBER = "number";
 
+    public static final String HISTORY_TABLE = "history";
+    public static final String COLUMN_TYPE = "type"; // buy or sell
+    public static final String COLUMN_TOTAL = "total";
+
     private static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + TABLE_NAME +
             "(" + COLUMN_SYMBOL + " TEXT PRIMARY KEY," +
             COLUMN_COMPANY_NAME + " INT," +
@@ -36,6 +40,13 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             COLUMN_SECTOR + " TEXT," +
             COLUMN_NUMBER + " INTEGER," +
             COLUMN_PRICE + " FLOAT" +
+            ")";
+    private static final String SQL_CREATE_HISTORY =  "CREATE TABLE " + HISTORY_TABLE +
+            "(" + COLUMN_SYMBOL + " TEXT," + //symbol
+            COLUMN_TYPE + " FLOAT," + // buy or sell
+            COLUMN_PRICE + " FLOAT," + //the price when buying or selling
+            COLUMN_NUMBER + " INTERGER," + // how many stock buy or sell
+            COLUMN_TOTAL + " FLOAT" + // total money earned or corsted
             ")";
 
     public DBOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -50,11 +61,13 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);
+        sqLiteDatabase.execSQL(SQL_CREATE_HISTORY);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + HISTORY_TABLE);
         onCreate(sqLiteDatabase);
     }
 

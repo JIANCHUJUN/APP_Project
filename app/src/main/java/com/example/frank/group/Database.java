@@ -14,7 +14,7 @@ import java.util.List;
 public class Database {
     private DBOpenHelper dbOpenHelper;
     public SQLiteDatabase sqLiteDatabase;
-    
+
 
     public Database(Context context) {
         dbOpenHelper = new DBOpenHelper(context);
@@ -43,7 +43,32 @@ public class Database {
         sqLiteDatabase.insert(DBOpenHelper.TABLE_NAME, null, contentValues);
     }
 
+    public ArrayList<History> get_History(Cursor cursor){
+        if (cursor != null){
+            cursor.moveToFirst();
+            ArrayList<History> result = new ArrayList<>();
+            while (!cursor.isAfterLast()){
+                History history = new History();
+                try{
+                    history.symbol = cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_SYMBOL));
+                    history.number = cursor.getInt(cursor.getColumnIndex(DBOpenHelper.COLUMN_NUMBER));
+                    history.price = cursor.getDouble(cursor.getColumnIndex(DBOpenHelper.COLUMN_PRICE));
+                    history.total = cursor.getDouble(cursor.getColumnIndex(DBOpenHelper.COLUMN_TOTAL));
+                    history.type = cursor.getString(cursor.getColumnIndex(DBOpenHelper.COLUMN_TYPE));
+                    result.add(history);
+                    cursor.moveToNext();
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+            return result;
+        }
+        return null;
+    }
 
+
+    //get stocks
     public ArrayList<Company> get(Cursor cursor){
         if (cursor != null){
             cursor.moveToFirst();
@@ -117,6 +142,7 @@ public class Database {
 
         //if can find stock
         if(cp_list.size() > 0){
+            //cp is the stock
             Company cp = cp_list.get(0);
             cursor = this.sqLiteDatabase.query(DBOpenHelper.TABLE_NAME, new String[]{"*"},
                     "symbol='user#info'", null, null, null, null);
@@ -138,7 +164,23 @@ public class Database {
                 contentValues.put(DBOpenHelper.COLUMN_PRICE, new_cash);
                 this.sqLiteDatabase.update("stocks", contentValues, "symbol=" + "'user#info'", null);
             }
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(DBOpenHelper.COLUMN_SYMBOL, cp.symbol);
+            contentValues.put(DBOpenHelper.COLUMN_PRICE, cp.price);
+            contentValues.put(DBOpenHelper.COLUMN_NUMBER, number);
+            contentValues.put(DBOpenHelper.COLUMN_TYPE, "BUY");
+            contentValues.put(DBOpenHelper.COLUMN_TOTAL, buy_cost(cp.price,number));
+            this.sqLiteDatabase.insert(DBOpenHelper.HISTORY_TABLE,null,contentValues);
         }
+    }
+
+    private double sell_income(double price, int number){
+        return  number * price - 10;
+    }
+
+    private double buy_cost(double price, int number){
+        return  number * price + 10;
     }
 
     public void submitSell(String symbol, int number){
@@ -170,6 +212,14 @@ public class Database {
                 contentValues.put(DBOpenHelper.COLUMN_PRICE, new_cash);
                 this.sqLiteDatabase.update("stocks", contentValues, "symbol=" + "'user#info'", null);
             }
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(DBOpenHelper.COLUMN_SYMBOL, cp.symbol);
+            contentValues.put(DBOpenHelper.COLUMN_PRICE, cp.price);
+            contentValues.put(DBOpenHelper.COLUMN_NUMBER, number);
+            contentValues.put(DBOpenHelper.COLUMN_TYPE, "SELL");
+            contentValues.put(DBOpenHelper.COLUMN_TOTAL, sell_income(cp.price,number));
+            this.sqLiteDatabase.insert(DBOpenHelper.HISTORY_TABLE,null,contentValues);
         }
     }
 

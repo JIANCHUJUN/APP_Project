@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class TradingInterface extends AppCompatActivity {
@@ -68,6 +67,11 @@ public class TradingInterface extends AppCompatActivity {
             database.submitSell(company.symbol,number);
         }
         Intent intent = new Intent(this, TradeMode.class);
+        startActivityForResult(intent, MainActivity.TRAEMODE_RESIGTER_REQUEST_CODE);
+    }
+
+    public void history(View view){
+        Intent intent = new Intent(this, HistoryActivity.class);
         startActivityForResult(intent, MainActivity.TRAEMODE_RESIGTER_REQUEST_CODE);
     }
 }

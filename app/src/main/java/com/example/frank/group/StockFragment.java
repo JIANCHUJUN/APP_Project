@@ -35,7 +35,7 @@ public class StockFragment extends Fragment implements View.OnClickListener {
     public String symbol;
     TextView price;
     Button delete;
-    int mode = 0;//0 is normal, 1 is game mode
+    int mode = 0;//0 is normal, 1 is game mode, 2 is history mode
 
     private OnFragmentInteractionListener mListener;
 
@@ -92,19 +92,35 @@ public class StockFragment extends Fragment implements View.OnClickListener {
         delete = (Button)getView().findViewById(R.id.delete);
         delete.setOnClickListener(this);
         name.setOnClickListener(this);
-        symbol = getArguments().getString("symbol");
-        String com_name = getArguments().getString("name");
-        String com_price = String.valueOf(getArguments().getDouble("price"));
-        int m = getArguments().getInt("mode");
-        if(getArguments().getInt("mode") == 1){
-            mode = 1;
-        }
-        name.setText(com_name);
-        price.setText("$"+com_price);
+        mode = getArguments().getInt("mode");
+        if (mode == 0 || mode == 1){
+            symbol = getArguments().getString("symbol");
+            String com_name = getArguments().getString("name");
+            String com_price = String.valueOf(getArguments().getDouble("price"));
 
-        if(mode == 1){
-            delete.setText("Buy/Sell");
+            if(getArguments().getInt("mode") == 1){
+                mode = 1;
+            }
+            name.setText(com_name);
+            price.setText("$"+com_price);
+
+            if(mode == 1){
+                delete.setText("Buy/Sell");
+            }
         }
+        else if (mode == 2){
+            symbol = getArguments().getString("symbol");
+            double com_price = getArguments().getDouble("price");
+            String type = getArguments().getString("type");
+            int nubmer = getArguments().getInt("number");
+            double total = getArguments().getDouble("total");
+            //name.setText(symbol);
+            delete.setVisibility(View.INVISIBLE);
+            name.setMaxWidth(name.getMaxWidth()*2);
+            name.setText(symbol + ","+"price: " + com_price + ",number: " + nubmer + ",type: " + type + ",total: " + total);
+            price.setText("");
+        }
+
     }
 
     @Override
