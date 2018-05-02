@@ -1,7 +1,7 @@
 package com.example.frank.group;
 
 import android.content.Context;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -56,27 +56,22 @@ public class ChartFragment extends Fragment {
             chart.clear();
         }
 
-        float[] inputExample = new float[]{98.8f,123.2f,148.3f,52.3f};
-        ArrayList<Company> currList = MainActivity.stockList;
+        ArrayList<Company> currList = TradeMode.stockList;
         for(int i = 0; i <currList.size(); i++){
 
-            //TODO: delete it when the app done
-            if(i > 1) {
-                currList.get(i).boughtTotal = 100;
-            }
-            //end of delete
-
             if(TradeMode.showAllStock) {
-                pieEntries.add(new PieEntry((float) currList.get(i).boughtTotal, currList.get(i).companyName));
+                pieEntries.add(new PieEntry((float) (currList.get(i).number * currList.get(i).price), currList.get(i).symbol));
             } else {
-                if(currList.get(i).boughtTotal != 0) {
-                    pieEntries.add(new PieEntry((float) currList.get(i).boughtTotal, currList.get(i).companyName));
+                if(currList.get(i).number != 0) {
+                    pieEntries.add(new PieEntry((float) (currList.get(i).number * currList.get(i).price), currList.get(i).symbol));
                 }
             }
         }
 
         dataSet = new PieDataSet(pieEntries,"You stocks");
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        dataSet.setValueTextColor(Color.BLACK);
+
         pieData = new PieData(dataSet);
 
         chart.setData(pieData);

@@ -97,9 +97,12 @@ public class TradeMode extends AppCompatActivity implements View.OnClickListener
             args.putString("name", company.companyName);
             args.putDouble("price", company.price);
             args.putString("symbol",company.symbol);
+            args.putInt("number",company.number);
             args.putInt("mode",1);
             frag.setArguments(args);
             getSupportFragmentManager().beginTransaction().add(R.id.container, frag).commit();
+
+            chartFragment.UpdateChat();
         }
     }
     private void bs(String symbol){
@@ -107,6 +110,8 @@ public class TradeMode extends AppCompatActivity implements View.OnClickListener
         intent.putExtra("symbol",symbol);
         startActivityForResult(intent, MainActivity.TRAEMODE_RESIGTER_REQUEST_CODE);
     }
+
+
 
     public void history(View view){
         Intent intent = new Intent(this, HistoryActivity.class);

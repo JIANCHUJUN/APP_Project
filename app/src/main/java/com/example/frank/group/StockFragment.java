@@ -98,14 +98,13 @@ public class StockFragment extends Fragment implements View.OnClickListener {
             String com_name = getArguments().getString("name");
             String com_price = String.valueOf(getArguments().getDouble("price"));
 
-            if(getArguments().getInt("mode") == 1){
-                mode = 1;
-            }
-            name.setText(com_name);
+            name.setText(symbol);
             price.setText("$"+com_price);
 
             if(mode == 1){
+                int number = getArguments().getInt("number");
                 delete.setText("Buy/Sell");
+                price.setText("$"+com_price + " /   own: " + number);
             }
         }
         else if (mode == 2){

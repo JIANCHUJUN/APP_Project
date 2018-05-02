@@ -15,7 +15,7 @@ public class TradingInterface extends AppCompatActivity {
     Database database;
     String symbol = "";
     Company company;
-    TextView price, number;
+    TextView price, number, companyName;
     EditText ticker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,7 @@ public class TradingInterface extends AppCompatActivity {
         price = findViewById(R.id.price);
         number = findViewById(R.id.number);
         ticker = findViewById(R.id.ticker);
+        companyName = findViewById(R.id.companyName);
         buy.setChecked(true);
         company = null;
     }
@@ -41,6 +42,7 @@ public class TradingInterface extends AppCompatActivity {
         company = database.get(cursor).get(0);
         price.setText("$ "+ String.valueOf(company.price));
         number.setText(String.valueOf(company.number));
+        companyName.setText(company.companyName);
     }
     @Override
     protected void onPause() {
@@ -49,7 +51,8 @@ public class TradingInterface extends AppCompatActivity {
     }
 
     public void back(View view){
-        finish();
+        Intent intent = new Intent(this, TradeMode.class);
+        startActivityForResult(intent, MainActivity.TRAEMODE_RESIGTER_REQUEST_CODE);
     }
 
     public void submit(View view) {

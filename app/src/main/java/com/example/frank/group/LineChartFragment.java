@@ -2,7 +2,6 @@ package com.example.frank.group;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
@@ -41,6 +39,7 @@ public class LineChartFragment extends Fragment implements OnChartGestureListene
     ArrayList<Entry> yValues;
     LineDataSet set1;
     ArrayList<ILineDataSet> dataSets;
+    boolean isSetted = false;
 
     public LineChartFragment() {
         // Required empty public constructor
@@ -60,23 +59,28 @@ public class LineChartFragment extends Fragment implements OnChartGestureListene
 
         yValues = new ArrayList<>();
 
+        mChart.setNoDataText("Click To See Chart");
 
         dataSets = new ArrayList<>();
 
 
-
-        upDateLineChart();
-
          return view;
     }
 
-    public void upDateLineChart() {
+    public void upDateLineChart(final ArrayList<ChartAPI.ChartHistory> input) {
 
+        isSetted = true;
 
-        yValues.add(new Entry(0, 60f,""));
-        yValues.add(new Entry(1, 40f));
-        yValues.add(new Entry(2, 20f));
-        yValues.add(new Entry(3, 70f));
+        if(!input.isEmpty()) {
+            for (int i = 1; i < input.size(); i++) {
+                yValues.add(new Entry(i, (float) input.get(i).closePrice));
+            }
+
+        }
+//        yValues.add(new Entry(0, 60f,""));
+//        yValues.add(new Entry(1, 40f));
+//        yValues.add(new Entry(2, 20f));
+//        yValues.add(new Entry(3, 70f));
 
         set1 = new LineDataSet(yValues,"Data Set 1");
 
@@ -92,12 +96,13 @@ public class LineChartFragment extends Fragment implements OnChartGestureListene
         xAxis.setValueFormatter(new IndexAxisValueFormatter(){
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                return "day "+ value;
+                return input.get((int)value).dateOfStock;
             }
 
         });
 
 
+        mChart.animateY(2000);
         mChart.setData(data);
 
 

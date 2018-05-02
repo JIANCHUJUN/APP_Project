@@ -45,6 +45,7 @@
             android:layout_gravity="center">
             <TableRow>
                 <CheckBox
+                    android:visibility="gone"
                     android:id="@+id/hideStock"
                     android:text="Show all stocks"/>
             </TableRow>

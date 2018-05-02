@@ -2,11 +2,13 @@ package com.example.frank.group;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class Detail extends AppCompatActivity implements View.OnClickListener, LineChartFragment.OnFragmentInteractionListener {
 
@@ -17,6 +19,7 @@ public class Detail extends AppCompatActivity implements View.OnClickListener, L
             descriptionT;
     Button webB, backB;
     LineChartFragment lineChartFragment;
+    ChartAPI chartAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +27,7 @@ public class Detail extends AppCompatActivity implements View.OnClickListener, L
         setContentView(R.layout.activity_detail);
         symbol = getIntent().getExtras().getString("symbol");
 
-        for(int i  = 0; i < MainActivity.stockList.size(); i++ ) {
+        for(int i = 0; i < MainActivity.stockList.size(); i++ ) {
             if(MainActivity.stockList.get(i).symbol.equals(symbol)){
                 currCompany =  MainActivity.stockList.get(i);
             }
@@ -47,6 +50,9 @@ public class Detail extends AppCompatActivity implements View.OnClickListener, L
 
         lineChartFragment = (LineChartFragment) getSupportFragmentManager().findFragmentById(R.id.lineChartContainerR);
 
+        chartAPI = new ChartAPI(this);
+        chartAPI.getInfo(symbol);
+
         updateTheTextView();
 
     }
@@ -62,6 +68,14 @@ public class Detail extends AppCompatActivity implements View.OnClickListener, L
         issueTypeT.setText(currCompany.issueType);
         sectorT.setText(currCompany.sector);
         descriptionT.setText(currCompany.description);
+        chartAPI.getInfo(symbol);
+
+    }
+
+    public void updataLineChart(ArrayList<ChartAPI.ChartHistory> inputList){
+        if(!lineChartFragment.isSetted) {
+            lineChartFragment.upDateLineChart(inputList);
+        }
     }
 
     public void delete(View view){
