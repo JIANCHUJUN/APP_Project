@@ -99,6 +99,7 @@ public class StockFragment extends Fragment implements View.OnClickListener {
             String com_price = String.valueOf(getArguments().getDouble("price"));
 
             name.setText(symbol);
+            name.setWidth(200);
             price.setText("$"+com_price);
 
             if(mode == 1){
@@ -115,8 +116,16 @@ public class StockFragment extends Fragment implements View.OnClickListener {
             double total = getArguments().getDouble("total");
             //name.setText(symbol);
             delete.setVisibility(View.INVISIBLE);
-            name.setMaxWidth(name.getMaxWidth()*2);
-            name.setText(symbol + ","+"price: " + com_price + ",number: " + nubmer + ",type: " + type + ",total: " + total);
+
+            String sign = "";
+            if(type.equals("BUY")){
+                sign= "-";
+            } else {
+                sign = "+";
+            }
+
+            name.setMaxWidth(name.getMaxWidth()*4);
+            name.setText(symbol + ", "+"price: " + com_price + ", Number: " + nubmer + ",type: " + type + ", total: "+sign+"$" + total);
             price.setText("");
         }
 

@@ -150,6 +150,10 @@ public class Database {
 
     }
 
+    public void refresh(){
+
+    }
+
     public boolean submitBuy(String symbol, int number){
         //get stock's information
         Cursor cursor = this.sqLiteDatabase.query(DBOpenHelper.TABLE_NAME, new String[]{"*"},

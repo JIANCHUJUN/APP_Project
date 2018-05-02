@@ -5,12 +5,13 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class TradingInterface extends AppCompatActivity {
+public class TradingInterface extends AppCompatActivity implements View.OnClickListener {
 
     RadioButton buy, sale;
     Database database;
@@ -18,6 +19,7 @@ public class TradingInterface extends AppCompatActivity {
     Company company;
     TextView price, number, companyName, totalprice;
     EditText ticker;
+    Button subm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +28,13 @@ public class TradingInterface extends AppCompatActivity {
         buy = findViewById(R.id.buy);
         sale = findViewById(R.id.sale);
         price = findViewById(R.id.price);
+        subm = findViewById(R.id.submit);
         number = findViewById(R.id.number);
         ticker = findViewById(R.id.ticker);
         companyName = findViewById(R.id.companyName);
         totalprice = findViewById(R.id.totalPrice);
+        buy.setOnClickListener(this);
+        sale.setOnClickListener(this);
         buy.setChecked(true);
         company = null;
     }
@@ -95,5 +100,15 @@ public class TradingInterface extends AppCompatActivity {
     public void history(View view){
         Intent intent = new Intent(this, HistoryActivity.class);
         startActivityForResult(intent, MainActivity.TRAEMODE_RESIGTER_REQUEST_CODE);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view == buy){
+            subm.setText("Buy");
+        }
+        if(view == sale){
+            subm.setText("Sell");
+        }
     }
 }

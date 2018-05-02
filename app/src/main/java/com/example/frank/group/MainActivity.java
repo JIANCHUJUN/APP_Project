@@ -61,7 +61,13 @@ public class MainActivity extends AppCompatActivity implements StockFragment.OnF
         updateUI();
         //refresh();
         if(timer != null){
-            timer.execute();
+            try{
+                timer.cancel(true);
+                timer.execute();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
         }
 
     }
@@ -90,8 +96,8 @@ public class MainActivity extends AppCompatActivity implements StockFragment.OnF
     }
 
     public void updateUI(){
-        lock.lock();
         container.removeAllViews();
+        lock.lock();
         Cursor cursor = databaseManager.sqLiteDatabase.query(DBOpenHelper.TABLE_NAME, new String[]{"*"},
                 null, null, null, null, null);
         stockList = databaseManager.get(cursor);
@@ -155,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements StockFragment.OnF
                 }catch (Exception e) {
                     e.printStackTrace();
                 }
-                refresh();
+                databaseManager.refresh();
             }
             return null;
         }
