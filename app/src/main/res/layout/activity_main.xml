@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.frank.group.MainActivity">
+    android:orientation="vertical"
+    tools:context="com.example.frank.group.MainActivity"
+    android:background="@color/white">
 
 
     <LinearLayout
@@ -12,62 +14,43 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
         android:id="@+id/posIdR">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/changMode"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#fff"
+                android:scaleType="centerCrop"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/change" />
 
-        <TableLayout
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center">
+            <EditText
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:id="@+id/ticker"
+                android:paddingLeft="20dp"
+                android:hint="stock ticker"
+                android:layout_weight="8"
+                android:gravity="center"
+                />
 
-            <TableRow>
-
-                <ImageButton
-                    android:id="@+id/changMode"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="#fff"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/change" />
-
-                <TextView
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="30dp"
-                    android:onClick="refresh"
-                    android:text="Stork Information"
-                    android:textColor="#000"
-                    android:textSize="25dp" />
-
-            </TableRow>
-        </TableLayout>
-
-        <TableLayout
-            android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp">
-
-            <TableRow>
-
-                <EditText
-                    android:id="@+id/ticker"
-                    android:layout_width="150dp"
-                    android:hint="stock ticker"
-                    android:selectAllOnFocus="true"
-                    android:textColorHint="#95A1AA" />
-
-                <ImageButton
-                    android:id="@+id/addStock"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="30dp"
-                    android:background="#fff"
-                    android:onClick="add"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/add" />
-            </TableRow>
-        </TableLayout>
+            <ImageButton
+                android:id="@+id/addStock"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:background="#fff"
+                android:onClick="add"
+                android:scaleType="centerCrop"
+                android:src="@drawable/add" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,9 +60,7 @@
             android:orientation="vertical">
 
         </LinearLayout>
-
     </LinearLayout>
-
 
 
 
