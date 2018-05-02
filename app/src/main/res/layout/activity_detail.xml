@@ -22,7 +22,8 @@
             android:textSize="30dp" />
 
         <TableLayout
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
 
@@ -147,13 +148,12 @@
         </TableLayout>
 
         <TableLayout
-            android:layout_width="350dp"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
 
-            <TableRow
-                android:layout_height="wrap_content"
-                >
+            <TableRow android:layout_height="wrap_content">
 
                 <TextView
                     android:text="description: "
@@ -161,11 +161,11 @@
 
                 <TextView
                     android:id="@+id/description"
-                    android:layout_width="240dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
                     android:singleLine="false"
                     android:text="Apple Inc is an American multinational technology company. It designs, manufactures, and markets mobile communication and media devices, personal computers, and portable digital music players."
-                    android:textSize="14dp" />
+                    android:textSize="19dp" />
             </TableRow>
         </TableLayout>
 

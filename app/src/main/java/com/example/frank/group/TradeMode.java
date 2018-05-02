@@ -123,9 +123,15 @@ public class TradeMode extends AppCompatActivity implements View.OnClickListener
 
     }
 
+    public void detail(String symbol){
+        Intent intent = new Intent(this, Detail.class);
+        intent.putExtra("symbol",symbol);
+        startActivityForResult(intent, MainActivity.RESIGTER_REQUEST_CODE);
+    }
+
     @Override
     public void fragText(String str) {
-
+        detail(str);
     }
 
     @Override
